@@ -1,4 +1,5 @@
 import { Code, Cpu, Layout, Rocket, Server, ShieldCheck } from "lucide-react";
+import Navbar from "../components/Navbar";
 
 const assignments = [
   {
@@ -42,6 +43,7 @@ const assignments = [
 export default function HomePage() {
   return (
     <div className="space-y-8">
+      <Navbar />
       <section className="space-y-2">
         <h1 className="text-3xl font-bold tracking-tight">
           Course Dashboard
