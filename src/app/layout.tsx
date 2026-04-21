@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Inter, Geist } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Header } from "@/components/header";
+import {TooltipProvider} from "@/components/ui/tooltip";
+import { AppSidebar } from "@/components/app-sidebar";
+import { DashboardTopNav } from "@/components/dashboard-top-nav";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
@@ -26,14 +29,23 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className={cn("font-sans", geist.variable)}>
       <body className={`${inter.variable} font-sans antialiased`}>
         <ThemeProvider
+        
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
-          <main className="mx-auto max-w-5xl px-4 py-8">{children}</main>
+          <TooltipProvider>
+          <SidebarProvider>
+            <AppSidebar />
+            <SidebarInset>
+              <DashboardTopNav />
+              <div className="flex flex-1 flex-col p-4 md:p-6">{children}</div>
+            </SidebarInset>
+          </SidebarProvider>
+          </TooltipProvider>
         </ThemeProvider>
+        
       </body>
     </html>
   );
