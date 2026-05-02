@@ -3,8 +3,11 @@ import { Inter, Geist } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import {TooltipProvider} from "@/components/ui/tooltip";
 import { AppSidebar } from "@/components/app-sidebar";
-import { DashboardTopNav } from "@/components/dashboard-top-nav";
+import BreadcrumbNav from "@/components/breadcrumb-nav";
+import { ModeToggle } from "@/components/mode-toggle";
+import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
@@ -39,7 +42,14 @@ export default function RootLayout({
           <SidebarProvider>
             <AppSidebar />
             <SidebarInset>
-              <DashboardTopNav />
+              <header className="sticky top-0 z-30 flex h-16 shrink-0 items-center gap-3 border-b bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/80 md:px-6">
+                <SidebarTrigger />
+                <Separator orientation="vertical" className="h-5" />
+                <BreadcrumbNav />
+                <div className="ml-auto">
+                  <ModeToggle />
+                </div>
+              </header>
               <div className="flex flex-1 flex-col p-4 md:p-6">{children}</div>
             </SidebarInset>
           </SidebarProvider>
