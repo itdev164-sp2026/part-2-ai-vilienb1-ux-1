@@ -11,7 +11,7 @@ export function Header() {
             
             ITDEV-164
           </span>
-          test
+        
         </div>
         <ModeToggle />
       </div>
