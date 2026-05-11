@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { supabase } from "@/lib/supabase";
+import { createSupabaseServerComponentClient } from "@/lib/supabase/server";
 import { cn } from "@/lib/utils";
 
 type Project = {
@@ -32,8 +32,10 @@ function getStatusStyles(status: string | null) {
 }
 
 export default async function ProjectsPage() {
+  const supabase = await createSupabaseServerComponentClient();
+
   const { data, error } = await supabase
-    .from("project")
+    .from("projects")
     .select("id, title, description, status");
 
   const projects = (data ?? []) as Project[];

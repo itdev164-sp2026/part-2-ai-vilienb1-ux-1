@@ -64,9 +64,7 @@ export function ProjectForm() {
             {...register("title")}
             aria-invalid={!!errors.title}
           />
-          {errors.title && (
-            <FieldError errors={[errors.title]} />
-          )}
+          {errors.title && <FieldError errors={[errors.title]} />}
         </FieldContent>
       </Field>
 
@@ -81,9 +79,7 @@ export function ProjectForm() {
             aria-invalid={!!errors.description}
             rows={4}
           />
-          {errors.description && (
-            <FieldError errors={[errors.description]} />
-          )}
+          {errors.description && <FieldError errors={[errors.description]} />}
         </FieldContent>
       </Field>
 
@@ -92,7 +88,12 @@ export function ProjectForm() {
           <span>Status</span>
         </FieldLabel>
         <FieldContent>
-          <Select value={statusValue} onValueChange={(value) => setValue("status", value as "active" | "completed" | "archived")}>
+          <Select
+            value={statusValue}
+            onValueChange={(value) =>
+              setValue("status", value as "active" | "completed" | "archived")
+            }
+          >
             <SelectTrigger aria-invalid={!!errors.status}>
               <SelectValue placeholder="Select status" />
             </SelectTrigger>
@@ -102,9 +103,7 @@ export function ProjectForm() {
               <SelectItem value="archived">Archived</SelectItem>
             </SelectContent>
           </Select>
-          {errors.status && (
-            <FieldError errors={[errors.status]} />
-          )}
+          {errors.status && <FieldError errors={[errors.status]} />}
         </FieldContent>
       </Field>
 
