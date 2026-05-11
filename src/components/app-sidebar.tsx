@@ -2,8 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FolderOpen, Home, Settings } from "lucide-react";
+import type { User } from "@supabase/supabase-js";
+import { FolderOpen, Home, Settings, LogOut } from "lucide-react";
 
+import { signOutUser } from "@/app/actions";
+import { Button } from "@/components/ui/button";
 import {
   Sidebar,
   SidebarContent,
@@ -36,7 +39,11 @@ const navItems = [
   },
 ];
 
-export function AppSidebar() {
+type AppSidebarProps = {
+  user: User | null;
+}
+
+export function AppSidebar({ user }: AppSidebarProps) {
   const pathname = usePathname();
 
   return (
@@ -75,7 +82,29 @@ export function AppSidebar() {
       </SidebarContent>
 
       <SidebarFooter>
-        <p className="px-2 text-xs text-sidebar-foreground/70">ITDEV-164</p>
+        {user ? (
+          <div className="space-y-3 px-2">
+            <div className="space-y-0.5">
+              <p className="text-xs text-sidebar-foreground/70">Signed in as</p>
+              <p className="truncate text-sm font-medium text-sidebar-foreground">
+                {user.email ?? "Authenticated user"}
+              </p>
+            </div>
+            <form action={signOutUser}>
+              <Button
+                type="submit"
+                variant="outline"
+                size="sm"
+                className="w-full justify-start border-sidebar-border/80 bg-sidebar-accent/40 text-sidebar-foreground hover:bg-sidebar-accent"
+              >
+                <LogOut />
+                Sign Out
+              </Button>
+            </form>
+          </div>
+        ) : (
+          <p className="px-2 text-xs text-sidebar-foreground/70">ITDEV-164</p>
+        )}
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
